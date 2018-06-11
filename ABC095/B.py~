@@ -1,0 +1,7 @@
+n, x=int(input().split())
+m = [int(i) for i in input()]
+
+for i in range(len(m)):
+    x-=m[i]
+print(n+int(x/min(m)))
+    

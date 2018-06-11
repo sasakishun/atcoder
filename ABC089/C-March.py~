@@ -1,3 +1,0 @@
-n = int(input())
-
-s = [i for i in range(input())]

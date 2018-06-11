@@ -1,7 +1,0 @@
-h, w, d = [int(i) for i in range(input.split()]
-a = [input.split() for i in range(h)]
-q = int(input())#moving num
-l = [0 for i in range(q)]#start number
-r = [0 for i in range(q)]#finish number
-for i in range(q):
-           

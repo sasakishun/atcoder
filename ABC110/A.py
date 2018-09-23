@@ -1,4 +1,6 @@
-n = int(input())
-a = [int(i) for i in input().split()]
+a, b, c = [int(i) for i in input().split()]
 
-print(a)
+n = [a, b, c]
+n = sorted(n)
+
+print(n[2]*10+n[1]+n[0])

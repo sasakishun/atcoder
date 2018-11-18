@@ -25,10 +25,8 @@ def cmb(n, r):
         return 1
     if r == 1:
         return n;
-
     numerator = [n - r + k + 1 for k in range(r)]
     denominator = [k + 1 for k in range(r)]
-
     for p in range(2, r + 1):
         pivot = denominator[p - 1]
         if pivot > 1:
@@ -36,12 +34,10 @@ def cmb(n, r):
             for k in range(p - 1, r, p):
                 numerator[k - offset] /= pivot
                 denominator[k] /= pivot
-
     result = 1
     for k in range(r):
         if numerator[k] > 1:
             result *= int(numerator[k])
-
     return result;
 
 
@@ -81,6 +77,6 @@ for i in range(len(div)):
         prevDiv = div[i]
 count = 1
 for i in range(len(divList)):
-    count *= cmb(divList[i] + n - 1, divList[i])
+    count *= cmb(divList[i] + n - 1, min(divList[i], n-1))
     # count *= combinations_count(divList[i] + n - 1, divList[i])
 print(count % (10 ** 9 + 7))

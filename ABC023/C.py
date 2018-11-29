@@ -11,22 +11,26 @@ for i in range(n):
     a[_r][_c] = 1
 r = sorted(r)
 c = sorted(c)
-for i in range(len(a)):
-    print(a[i])
+# for i in range(len(a)):
+# print(a[i])
 count = 0
 j = C - 1
 for i in range(R):
+    # print("j:{}".format(j))
     while r[i][0] + c[j][0] > k + 1:
-        print("a[{}][{}]:{}".format(r[i][1], c[j][1], r[i][0] + c[j][0]))
+        # print("a[{}][{}]:{}".format(r[i][1], c[j][1], r[i][0] + c[j][0]))
         j -= 1
-    # count += C - 1 - j
-    print("add:{} i:{} j:{}".format(C - 1 - j, i, j))
-    if r[i][0] + c[j][0] == k + 1 and a[r[i][1]][c[j][1]] == 1:
-        count += 1
-        print("score==k i:{} j:{}".format(i, j))
-    elif r[i][0] + c[j - 1][0] == k and a[r[i][1]][c[j - 1][1]] != 1:
-        count += 1
-        print("score==k i:{} j:{}".format(i, j))
+    # count += C - j - 1
+    # print("add:{} i:{} j:{}".format(C - 1 - j, i, j))
+    j2 = j
+    while j2 >= 0:
+        if r[i][0] + c[j2][0] == k + 1 and a[r[i][1]][c[j2][1]] == 1:
+            count += 1
+            # print("score==k i:{} j:{}".format(r[i][1], c[j][1]))
+        elif r[i][0] + c[j2][0] == k and a[r[i][1]][c[j2][1]] == 0:
+            count += 1
+            # print("score==k i:{} j:{}".format(r[i][1], c[j][1]))
+        j2 -= 1
 print(count)
-print(r)
-print(c)
+# print(r)
+# print(c)

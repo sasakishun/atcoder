@@ -1,7 +1,9 @@
 import copy
 
-#math.infはpython3.5以降のみ使用可能
-inf  = 10 ** 9
+# math.infはpython3.5以降のみ使用可能
+inf = 10 ** 9
+
+
 class warshallFloyd:
     def __init__(self, adj):
         self.dis = copy.deepcopy(adj)
@@ -9,7 +11,8 @@ class warshallFloyd:
             for j in range(len(adj)):
                 if i != j and adj[i][j] == 0:
                     self.dis[i][j] = inf
-    #全ての頂点間の最短距離を算出、
+
+    # 全ての頂点間の最短距離を算出、
     def search(self):
         for k in range(n):
             for i in range(n):

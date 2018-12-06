@@ -1,2 +1,5 @@
-n = int(input())
-a = [int(i) for i in input().split()]
+n = input()
+# 1回の処理で、1文字減、連続部分1増
+# 最悪でも「len(n)/2」回で終了
+
+# 全ての場合を試しても良さそう

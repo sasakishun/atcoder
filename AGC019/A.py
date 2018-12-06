@@ -1,29 +1,45 @@
 import math
 
-q, h, s, d = [20, 30, 70, 90] # [int(i) for i in input().split()]
-n = 3 # int(input())
+q, h, s, d = [int(i) for i in input().split()]
+n = int(input())
 size = [0.25, 0.5, 1., 2.]
-money = [q, h, s, d]
-# 全探索は不可能、理論的に算出
-# 単位量当たりの価格を算出
-# まず0.25Lずつ買うといくらになるのか算出
-# このうちいくらかを0.5Lで置き換えて、安くなるか判断
+money = [[0.25 / q, q, 0.25], [0.5 / h, h, 0.5],
+         [1 / s, s, 1.], [2 / d, d, 2.]]
+# コスパ高い順にソート
+money = list(reversed(sorted(money)))
+# print(money)
+totalMoney = 0
+while True:
+    totalMoney += int(n / money[0][2]) * money[0][1]
+    # print("add:{} {}cup {}yen".format(int(n / money[0][2]) * money[0][1], int(n / money[0][2]), money[0][1]))
+    n %= money[0][2]
+    # print("totalmoney:{}".format(totalMoney))
+    if n == 0:
+        print(totalMoney)
+        exit()
+    del money[0]
 
-# 最もコスパがいいもので買い、超過分を別のリットルで置き換える
-# これを置き換えられなくなるまで行う
-
-# まず最高コスパで算出
-minMoney = 0
-nowL = 0
-maxPerformance = 0
-maxPerformanceIndex = 0
-for i in range(4):
-    if maxPerformance < size[i] / money[i]:
-        maxPerformance = size[i] / money[i]
-        nowL = math.ceil(n/size[i]) * size[i]
-        minMoney = nowL * money[i]
-        maxPerformanceIndex = i
-print("nowL:{} maxPerformance:{}, minMoney:{} maxIndex:{}".
-      format(nowL, maxPerformance, minMoney, maxPerformanceIndex))
-over = nowL - size[maxPerformanceIndex]
-print("over:{}".format(over))
+"""
+leftFlag = True
+while True:
+    # 確定分のお金を加算
+    totalMoney += int(n/money[0][2])*money[0][1]
+    print("add:{} {}cup {}yen".format(int(n/money[0][2])*money[0][1], int(n/money[0][2]), money[0][1]))
+    n %= money[0][2]
+    print("totalmoney:{}".format(totalMoney))
+    if n == 0:
+        print(totalMoney)
+        exit()
+    # [お金, どの容器か(q,h,s,d)]
+    over = [money[0][1], money[0][2]]
+    moreGoodExist = False
+    for i in range(1, len(money)):
+        if math.ceil(n/money[i][2])*money[i][1] < over[0]:
+            over =[math.ceil(n/money[i][2])*money[i][1], money[i][2]]
+            moreGoodExist = True
+    if moreGoodExist:
+        del money[0]
+    else:
+        print(totalMoney + over[0])
+        exit()
+"""

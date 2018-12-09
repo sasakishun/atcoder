@@ -1,2 +1,10 @@
 n = int(input())
-a = [int(i) for i in input().split()]
+s = input()
+t = input()
+
+length = 2 * n
+for i in range(len(s)):
+    if s[i:len(s)] == t[0:len(s) - i]:
+        length = min(length, i + n)
+        # print("length:{}".format(i + n))
+print(length)

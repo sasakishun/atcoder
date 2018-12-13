@@ -1,2 +1,9 @@
 n = int(input())
-a = [int(i) for i in input().split()]
+
+h = int(n/3600)
+n -= h*3600
+
+m = int(n/60)
+n -= m*60
+
+print("{}:{}:{}".format(str(h).zfill(2), str(m).zfill(2), str(n).zfill(2)))

@@ -1,2 +1,6 @@
-n = int(input())
-a = [int(i) for i in input().split()]
+a = input()
+b = input()
+if len(a) > len(b):
+    print(a)
+else:
+    print(b)

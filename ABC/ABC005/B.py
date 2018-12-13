@@ -1,2 +1,5 @@
 n = int(input())
-a = [int(i) for i in input().split()]
+_min = 10**6
+for i in range(n):
+    _min = min(_min, int(input()))
+print(_min)

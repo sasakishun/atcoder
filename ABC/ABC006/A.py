@@ -1,2 +1,9 @@
 n = int(input())
-a = [int(i) for i in input().split()]
+if n % 3 == 0:
+    print("YES")
+    exit()
+for i in range(len(str(n))):
+    if str(n)[i] == "3":
+        print("YES")
+        exit()
+print("NO")

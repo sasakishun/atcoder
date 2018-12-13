@@ -1,2 +1,5 @@
 n = int(input())
-a = [int(i) for i in input().split()]
+if n+1 > 12:
+    print(1)
+else:
+    print(n+1)

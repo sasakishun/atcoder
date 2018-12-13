@@ -1,2 +1,3 @@
-n = int(input())
-a = [int(i) for i in input().split()]
+h1 = int(input())
+h2 = int(input())
+print(h1-h2)

@@ -1,2 +1,5 @@
-n = int(input())
-a = [int(i) for i in input().split()]
+n = input()
+if n == "a":
+    print(-1)
+else:
+    print("a")

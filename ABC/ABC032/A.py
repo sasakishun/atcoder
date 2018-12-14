@@ -1,2 +1,9 @@
+a = int(input())
+b = int(input())
 n = int(input())
-a = [int(i) for i in input().split()]
+
+while True:
+    if n % a == 0 and n % b == 0:
+        print(n)
+        exit()
+    n += 1

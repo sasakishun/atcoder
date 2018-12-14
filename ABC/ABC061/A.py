@@ -1,4 +1,2 @@
-import math
-
-a, b = [int(i) for i in input().split()]
-print(math.ceil(b/a))
+n = int(input())
+a = [int(i) for i in input().split()]

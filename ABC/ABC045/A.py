@@ -1,2 +1,5 @@
-n = int(input())
-a = [int(i) for i in input().split()]
+a = int(input())
+b = int(input())
+h = int(input())
+
+print(int((a+b)*h/2))

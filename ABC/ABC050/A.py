@@ -1,5 +1,5 @@
-a = int(input())
-_max = 0
-for i in range(0, a+1):
-    _max = max(_max, i * (a - i))
-print(_max)
+a, op, b = [i for i in input().split()]
+if op == "+":
+    print(int(a) + int(b))
+else:
+    print(int(a) - int(b))

@@ -1,5 +1,2 @@
 n = int(input())
-if n % 2 == 0:
-    print(n - 1)
-else:
-    print(n + 1)
+a = [int(i) for i in input().split()]

@@ -1,2 +1,5 @@
 n = int(input())
-a = [int(i) for i in input().split()]
+if n == 1:
+    print(1)
+else:
+    print(int((1 + n)*(n/2)))

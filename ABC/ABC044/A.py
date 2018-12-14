@@ -1,2 +1,6 @@
 n = int(input())
-a = [int(i) for i in input().split()]
+k = int(input())
+x = int(input())
+y = int(input())
+
+print(x * min(n, k) + max(0, y * (n - k)))

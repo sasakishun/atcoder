@@ -1,2 +1,3 @@
-n = int(input())
-a = [int(i) for i in input().split()]
+s = input()
+i = int(input())
+print(s[i-1])

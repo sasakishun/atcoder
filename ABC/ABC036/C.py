@@ -1,20 +1,14 @@
-import copy
-n = int(input())
-a = [[0, i] for i in range(n)]
+n, T = [int(i) for i in input().split()]
+t = [int(i) for i in input().split()]
 
-for i in range(n):
-    a[i][0] = int(input())
-b = sorted(a)
-out = copy.deepcopy(b)
-out[0][0] = 0
-now = 0
-for i in range(1, n):
-    if b[i - 1][0] == b[i][0]:
-        out[i][0] = out[i-1][0]
+count = 0
+prevEnd = T
+for i in range(1, len(t)):
+    # print("prevEnd:{} count:{}".format(prevEnd, count))
+    if prevEnd <= t[i]:
+        count += T
     else:
-        out[i][0] = out[i - 1][0] + 1
-for i in range(n):
-    # print(out[i])
-    a[out[i][1]][0] = out[i][0]
-for i in range(n):
-    print(a[i][0])
+        count += t[i] - t[i-1]
+    prevEnd = t[i] + T
+    # print("prevEnd:{} count:{}\n".format(prevEnd, count))
+print(count + T)

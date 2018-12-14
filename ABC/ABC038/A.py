@@ -1,2 +1,2 @@
-n = int(input())
-a = [int(i) for i in input().split()]
+a, b, c = [int(i) for i in input().split()]
+print(int(c/ min(a,b)))

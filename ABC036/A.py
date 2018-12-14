@@ -1,2 +1,5 @@
-n = int(input())
-a = [int(i) for i in input().split()]
+s = input()
+if s[-1] == "T":
+    print("YES")
+else:
+    print("NO")

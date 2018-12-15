@@ -1,2 +1,5 @@
-n = int(input())
-a = [int(i) for i in input().split()]
+x = int(input())
+if x < 1200:
+    print("ABC")
+else:
+    print("ARC")

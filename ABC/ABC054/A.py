@@ -1,2 +1,11 @@
-n = int(input())
-a = [int(i) for i in input().split()]
+a, b = [int(i) for i in input().split()]
+if a == 1:
+    a = 14
+if b == 1:
+    b = 14
+if a > b:
+    print("Alice")
+elif a < b:
+    print("Bob")
+else:
+    print("Draw")

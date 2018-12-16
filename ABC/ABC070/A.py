@@ -1,2 +1,5 @@
-n = int(input())
-a = [int(i) for i in input().split()]
+n = input()
+if n[0] == n[-1]:
+    print("Yes")
+else:
+    print("No")

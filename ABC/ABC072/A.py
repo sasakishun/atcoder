@@ -1,2 +1,2 @@
-n = int(input())
-a = [int(i) for i in input().split()]
+x, t = [int(i) for i in input().split()]
+print(max(0, x - t))

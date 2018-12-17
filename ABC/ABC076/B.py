@@ -1,2 +1,6 @@
 n = int(input())
-a = [int(i) for i in input().split()]
+k = int(input())
+count = 1
+for _ in range(n):
+    count = min(count * 2, count + k)
+print(count)

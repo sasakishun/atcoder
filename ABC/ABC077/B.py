@@ -1,2 +1,7 @@
 n = int(input())
-a = [int(i) for i in input().split()]
+i = 1
+out = 0
+while i ** 2 <= n:
+   out = i ** 2
+   i += 1
+print(out)

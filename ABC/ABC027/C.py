@@ -1,140 +1,44 @@
-_sx, _sy, _tx, _ty = [int(i) for i in input().split()]
-sx, sy, tx, ty = _sx, _sy, _tx, _ty
-"""
-# 全ての場合を一度tx > sx, ty > syにしてから考える
-if sx != tx and sy != ty:
-    if tx > sx and ty < sy:
-        ty += (ty - sy) * 2
-    elif tx < sx and ty > sy:
-        tx += (tx - sx) * 2
-    elif tx < sx and ty < sy:
-        tx += (tx - sx) * 2
-        ty += (ty - sy) * 2
-elif sx == tx:
-    if ty < sy:
-        ty += (ty - sy) * 2
-else:  # sx==txの形に変換
-    if tx < sx:
-        tx += (tx - sx) * 2
-    sy = sx
-    ty = sx
-"""
-path = ""
-# 1回目の行き
-for i in range(tx - sx):
-    path += "R"
-for i in range(ty - sy):
-    path += "U"
-# 1回目の帰り道
-for i in range(tx - sx):
-    path += "L"
-for i in range(ty - sy):
-    path += "D"
-# 2回目の行き
-path += "D"
-for i in range(tx - sx + 1):
-    path += "R"
-for i in range(ty - sy + 1):
-    path += "U"
-path += "L"
-# 2回目の帰り道
-path += "U"
-for i in range(tx - sx + 1):
-    path += "L"
-for i in range(ty - sy + 1):
-    path += "D"
-path += "R"
-"""
-else:  # sy == ty
-    if tx > sx:
-        for i in range(tx - sx):
-            path += "U"
-        path += "R"
-        for i in range(tx - sx):
-            path += "D"
-        path += "L"
-        path += "DRR"
-        for i in range(tx - sx + 2):
-            path += "U"
-        path += "LLDL"
-        for i in range(tx - sx):
-            path += "D"
-        path += "R"
-"""
-print(path)
-"""
-if sx != tx and sy != ty:
-    if tx > sx:
-        for i in range(tx - sx):
-            path += "R"
+def func(n):
+    # depthを算出
+    _n = n
+    depth = 0
+    while _n // 2 > 0:
+        depth += 1
+        _n = _n // 2
+    now = 1
+    if depth % 2 == 1:
+        # このdepthにたどり着くのはTakahashi
+        # この層には[2^depth <= n <= 2^(depth) - 1]までの数が含まれる
+        # 2^depth <= nに行ければTakahashiの勝ち
+        # n < 2^depth に行ければAokiの勝ち、
+        # Aokiは左へ移動、Takahashiは右へ移動
+        while True:
+            #左を目指すTakahashi
+            now *= 2
+            if now > n:
+                return "Aoki"
+            #右を目指すAoki
+            now *= 2
+            now += 1
+            if now > n:
+                return "Takahashi"
     else:
-        for i in range(sx - tx):
-            path += "L"
-    if ty > sy:
-        for i in range(ty - sy):
-            path += "U"
-    else:
-        for i in range(sy - ty):
-            path += "D"
-    # 帰り道
-    if tx > sx:
-        for i in range(tx - sx):
-            path += "L"
-    else:
-        for i in range(sx - tx):
-            path += "R"
-    if ty > sy:
-        for i in range(ty - sy):
-            path += "D"
-    else:
-        for i in range(sy - ty):
-            path += "U"
-    # 2回目の行き
-    if tx > sx and ty > sy:
-        path += "D"
-    elif tx > sx
-    if tx > sx:
-        for i in range(tx - sx):
-            path += "R"
-    else:
-        for i in range(sx - tx):
-            path += "L"
-    if ty > sy:
-        for i in range(ty - sy):
-            path += "U"
-    else:
-        for i in range(sy - ty):
-            path += "D"
+        while True:
+            # 右を目指すTakahashi
+            now *= 2
+            now += 1
+            if now > n:
+                return "Aoki"
+            # 左を目指すAoki
+            now *= 2
+            if now > n:
+                return "Takahashi"
 
-elif sx == tx:
-    if ty > sy:
-        for i in range(ty - sy):
-            path += "U"
-        path += "R"
-        for i in range(ty - sy):
-            path += "D"
-        path += "L"
-    else:
-        for i in range(sy - ty):
-            path += "D"
-        path += "R"
-        for i in range(sy - ty):
-            path += "U"
-        path += "L"
-else:  # sy == ty
-    if tx > sx:
-        for i in range(tx - sx):
-            path += "R"
-        path += "U"
-        for i in range(tx - sx):
-            path += "L"
-        path += "D"
-    else:
-        for i in range(sx - tx):
-            path += "L"
-        path += "U"
-        for i in range(sx - tx):
-            path += "R"
-        path += "D"
-print(path)
+print(func(int(input())))
+"""
+print(func(1) == "Aoki")
+print(func(5) == "Takahashi")
+print(func(7) == "Aoki")
+print(func(10) == "Takahashi")
+print(func(123456789123456789) == "Aoki")
 """

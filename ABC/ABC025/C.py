@@ -1,19 +1,14 @@
 import copy
 
-"""
-b = [[0 for _ in range(3)] for _ in range(2)]
-c = [[0 for _ in range(2)] for _ in range(3)]
 
-for i in range(2):
-    b[i] = [int(i) for i in input().split()]
-for i in range(3):
-    c[i] = [int(i) for i in input().split()]
-"""
-memo = [-10 ** 5 for _ in range(1 << 10)]
-print(len(memo))
+memo = dict()
+# memo = [- 10 ** 10 for _ in range(1 << 10 + 10)]
+# print(len(memo))
 
 
 def search(_accessible, left, maxTurn, _table):
+    def write_memo():
+        return "".join([c for c in [''.join(map(str, _table[i])) for i in range(3)]])
     # print("left:{}".format(left))
     if left == 0:  # 探索終了時にスコアを算出して返す
         score = 0
@@ -28,23 +23,37 @@ def search(_accessible, left, maxTurn, _table):
                         or (_table[_i][_j] == "x" and _table[_i][_j + 1] == "x"):
                     score += c[_i][_j]
         # print("table:{} score:{}".format(_table, score))
+        """
         print()
         for i in range(3):
             print(_table[i])
         print(score)
+        """
         return score
     else:
         counter = 0
+        # このcounterの数え方が間違ってそう
+        """
         for i in range(3):
             for j in range(3):
-                if _table[i][j] == "o":
+                if _table[i][j] == "":
+                    # ここの==""が超重要
+                    # もし=="o"とすると誤り発生
+                    # 原因は""の数で状態は一意に決まるが
+                    # "o"では一意に決まらないから
+                    # "o"が同じでも"x"は違うかもしれない
+                    # 一意に判別するのは
                     counter += 1 << (3 * i + j + 1)
+        """
         # メモ化してあったらそのまま返す
-        if memo[counter] != -10 ** 5:
+        _writeMemo = write_memo()
+        if _writeMemo and (_writeMemo in memo.keys()):
+            return memo[_writeMemo]
+        # if memo[counter] != - 10 ** 10:
             # print("cut")
-            return memo[counter]
-        _max = 0
-        _min = 10 ** 6
+            # return memo[counter]
+        _max = -10 ** 10
+        _min = 10 ** 10
         for i in range(3):
             for j in range(3):
                 if _accessible[i][j]:
@@ -59,27 +68,35 @@ def search(_accessible, left, maxTurn, _table):
                         _min = min(_min, search(accessible, left - 1, not maxTurn, table))
         if maxTurn:
             # print("maxTurn:{}".format(_max))
-            memo[counter] = _max
-            print("max memo[{}]:{}".format(counter, memo[counter]))
+            memo[write_memo()] = _max
+            # memo[counter] = _max
+            # print("max memo[{}]:{} left:{}".format(counter, memo[counter], left))
             return _max
         else:
             # print("mini")
-            print("min memo[{}]:{}".format(counter, memo[counter]))
-            memo[counter] = _min
+            # print("min memo[{}]:{} left:{}".format(counter, memo[counter], left))
+            memo[write_memo()] = _min
+            # memo[counter] = _min
             return _min
 
+b = [[0 for _ in range(3)] for _ in range(2)]
+c = [[0 for _ in range(2)] for _ in range(3)]
+for i in range(2):
+    b[i] = [int(i) for i in input().split()]
+for i in range(3):
+    c[i] = [int(i) for i in input().split()]
 
-b = [[18, 22, 15, ], [11, 16, 17]]
-c = [[4, 25], [22, 15], [10, 4]]
+# b = [[18, 22, 15], [11, 16, 17]]
+# c = [[4, 25], [22, 15], [10, 4]]
 # b = [[0, 15, 0], [0, 0, 25]]
 # c = [[20, 10], [0, 0], [25, 0]]
 totalScore = sum(b[0]) + sum(b[1]) + sum(c[0]) + sum(c[1]) + sum(c[2])
 _accessible = [[True for _ in range(3)] for _ in range(3)]
-_table = [["" for _ in range(3)] for _ in range(3)]
+_table = [["." for _ in range(3)] for _ in range(3)]
 naoki = search(_accessible, 9, True, _table)
 print(naoki)
 print(totalScore - naoki)
-
+# print(memo)
 """
 _max = 0
 N = [i for i in range(9)]  # N = bit探索する桁数

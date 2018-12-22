@@ -21,7 +21,7 @@ for i in range(M):
     dk[xM[i]][yM[i]] = 1
     dk[yM[i]][xM[i]] = 1
 dist = dijkstra(dk, directed=False, indices=a - 1)
-print("dist:{}".format(dist))  # 各ノードへの距離を出力[ノード0への距離,ノード1への距離,...]
+# print("dist:{}".format(dist))  # 各ノードへの距離を出力[ノード0への距離,ノード1への距離,...]
 
 # 最短経路DAGの作成
 # "ある家への最短 + コスト = 次の家への最短"
@@ -33,7 +33,7 @@ for i in range(M):
         dag.append((xM[i], yM[i]))
     elif dist[yM[i]] + 1 == dist[xM[i]]:
         dag.append((yM[i], xM[i]))
-print("dag:{}".format(dag))
+# print("dag:{}".format(dag))
 # dag:[(0, 1), (0, 2),..(出発地,目的地)]
 
 # ここからトポロジカルソート準備
@@ -44,14 +44,14 @@ for i in range(len(dag)):
     incnts[dag[i][1]] += 1
     # 流出先ノードのリスト
     outnodes[dag[i][0]].append(dag[i][1])
-print("incnts:{}".format(incnts))
-print("outnodes:{}".format(outnodes))
+# print("incnts:{}".format(incnts))
+# print("outnodes:{}".format(outnodes))
 # 流入ノード数が0であるノードのセットS
 S = set()
 for i in range(N):
     if incnts[i] == 0:
         S.add(i)
-print("S:{}".format(S)) # スタートノードなどがSに追加される
+# print("S:{}".format(S)) # スタートノードなどがSに追加される
 # 暫定ソート結果を保持する空リストL
 L = []
 
@@ -74,7 +74,7 @@ while S:
         if incnts[node] == 0:
             S.add(node)
 # Sは空になっている
-print("L:{}".format(L))
+# print("L:{}".format(L))
 # 経路DP
 dp = [0] * N
 # 開始位置は0じゃなくてa-1,問題文でスタートが可変にされたため

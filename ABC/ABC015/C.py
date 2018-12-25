@@ -8,17 +8,16 @@ for i in range(n):
 def search(questionNum, score):
     # print(questionNum)
     if questionNum == n:
-        # print("score:{}".format(score))
-        return score
-    for i in range(len(t[questionNum])):
-        # print("xor:{}".format(score ^ t[questionNum][i]))
-        score = search(questionNum+1, int(score ^ t[questionNum][i]))
         if score == 0:
-            return 0
-    return score
+            print("Found")
+            exit()
+        # print("score:{}".format(score))
+        return
+    for i in t[questionNum]:
+        # print("xor:{}".format(score ^ t[questionNum][i]))
+        search(questionNum+1, score ^ i)
+    return
 
 for i in range(len(t[0])):
-    if search(1, t[0][i]) == 0:
-        print("Found")
-        exit()
+    search(1, t[0][i])
 print("Nothing")

@@ -27,6 +27,7 @@ for j in range(c):
         else:
             count = 0
         table[i][j][1] = count
+"""
 for i in range(r):
     count = 0
     for j in range(c):
@@ -42,6 +43,7 @@ for i in range(r):
         else:
             count = 0
         table[i][j][3] = count
+"""
 out = 0
 # for i in table:
 # print(i)

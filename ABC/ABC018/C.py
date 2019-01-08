@@ -6,7 +6,8 @@ s = [['x', 'o', 'o', 'o', 'o'], ['o', 'o', 'o', 'o', 'x'], ['o', 'o', 'o', 'o', 
 r, c, k = [int(i) for i in input().split()]
 s = [["0" for _ in range(c)] for _ in range(r)]
 for i in range(len(s)):
-    s[i][0:c] = input()
+    # s[i][0:c] = input()
+    s[i] = input()
 table = [[[0, 0, 0, 0] for _ in range(c)] for _ in range(r)]
 # table[i][j]->[a, b]の場合、[i][j]の上にaつ連続した"o"があり
 # 下にbつ連続した"o"がある

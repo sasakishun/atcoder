@@ -9,6 +9,7 @@ def func(n, a, x):
             plus += _x
         else:
             minus += _x
+    # print("x:{}".format(x))
     dp = [[0] * (plus - minus + 1) for j in range(n + 1)]
     # 平均がAとは,x[i]-Aの和が0となること
     # dp[j][t] = "xからj枚以上選んで和が「t-(負のxの和)」の場合の数"
@@ -20,22 +21,21 @@ def func(n, a, x):
     dp[0][-minus] = 1
     for j in range(1, len(dp)):
         for t in range(len(dp[0])):
-            print("j:{} dp({},{})".format(j, len(dp), len(dp[0])))
+            # print("j:{} dp({},{})".format(j, len(dp), len(dp[0])))
             dp[j][t] = dp[j - 1][t]
-            print("t:{} x[{}]:{}".format(t, j-1, x[j-1]))
-            if t - x[j-1] >= 0:
+            # print("t:{} x[{}]:{}".format(t, j-1, x[j-1]))
+            if len(dp[0]) > t - x[j-1] >= 0:
+                # print(t - x[j-1])
                 dp[j][t] += \
                     dp[j - 1][t - x[j-1]]
-    return dp[n][-min()]
+    return dp[n][-minus] - 1
 
 
-"""
 n, a = [int(i) for i in input().split()]
 x = [int(i) for i in input().split()]
 print(func(n, a, x))
 """
 print(func(4, 8, [7, 8, 9, 9]) == 5)  # 合計33
-"""
 print(func(3, 8, [6, 6, 9]) == 0)  # 合計21
 print(func(8, 5, [3, 6, 2, 8, 7, 6, 5, 9]) == 19)  # 合計46
 print(func(33, 3,

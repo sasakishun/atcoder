@@ -29,7 +29,7 @@ def func(r, c, k, s):
         count += 1
     # print("_sum:{}".format(_sum))
     for i in range(k - 1, r - (k - 1)):
-        if i > k - 1:
+        if k - 1 < i:
             # 縦方向への移動,「j==k-1」
             # 追加領域分の計算
             _sum = total[i - 1][k-1]
@@ -46,11 +46,11 @@ def func(r, c, k, s):
                 _sum -= 1
             # print("i:{} j:{} _sum:{}".format(i, k - 1, _sum))
             # 削除領域分の計算
-            _sum -= table[i - 1][2*(k - 1)][1] - table[i - 1 - (k - 1)][k-1][1]
+            _sum -= table[i - 1][2 * (k - 1)][0] - table[i - 1 - (k - 1)][k - 1][0]
             if s[i - 1 - (k - 1)][k-1] == "o":
                 _sum -= 1
             # print(_sum)
-            _sum -= table[i - 1][2 * (k - 1)][0] - table[i - 1 - (k - 1)][k - 1][0]
+            _sum -= table[i - 1][0][1] - table[i - 1 - (k - 1)][k - 1][1]
             # print(_sum)
             total[i][k - 1] = _sum
             if _sum == 2 * (k ** 2) - 2 * k + 1:
@@ -75,11 +75,12 @@ def func(r, c, k, s):
             total[i][j] = _sum
             if _sum == 2 * (k ** 2) - 2 * k + 1:
                 count += 1
-    for i in range(len(total)):
-        print(total[i])
+    # for i in range(len(total)):
+        # print(total[i])
     return count
 
 
+"""
 r, c, k = [4, 5, 2]
 s = [['x', 'o', 'o', 'o', 'o'], ['o', 'o', 'o', 'o', 'x'], ['o', 'o', 'o', 'o', 'o'], ['o', 'x', 'x', 'o', 'o']]
 out = func(r, c, k, s)
@@ -98,4 +99,3 @@ s = [["0" for _ in range(c)] for _ in range(r)]
 for i in range(len(s)):
     s[i] = input()
 print(func(r, c, k, s))
-"""

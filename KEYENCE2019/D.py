@@ -17,13 +17,13 @@ def func(n, m, a, b):
     count = 1
     margin = 0
     for i in reversed(range(len(under))):
+        margin += under[i]
         if fixed[i]:
-            margin += under[i]
             continue
         else:
-            count *= under[i] + margin
+            count *= margin
             count %= (10**9) + 7
-            margin += under[i] - 1
+            margin -= 1
     count %= (10 ** 9) + 7
     # print("count:{}".format(count))
     return count

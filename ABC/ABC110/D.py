@@ -1,6 +1,3 @@
-import math
-
-
 def factorization(n):
     R = int(n)
     s = 0
@@ -9,7 +6,7 @@ def factorization(n):
     while s == 0:
         for i in range(div, R + 1):
             if n % i == 0:
-                n = n / i
+                n //= i
                 div = i
                 if n == 1:
                     s = 1
@@ -24,21 +21,21 @@ def cmb(n, r):
     if r == 0:
         return 1
     if r == 1:
-        return n;
+        return n
     numerator = [n - r + k + 1 for k in range(r)]
     denominator = [k + 1 for k in range(r)]
     for p in range(2, r + 1):
         pivot = denominator[p - 1]
         if pivot > 1:
-            offset = (n - r) % p;
+            offset = (n - r) % p
             for k in range(p - 1, r, p):
-                numerator[k - offset] /= pivot
-                denominator[k] /= pivot
+                numerator[k - offset] //= pivot
+                denominator[k] //= pivot
     result = 1
     for k in range(r):
         if numerator[k] > 1:
-            result *= int(numerator[k])
-    return result;
+            result *= numerator[k]
+    return result
 
 
 """
@@ -78,5 +75,6 @@ for i in range(len(div)):
 count = 1
 for i in range(len(divList)):
     count *= cmb(divList[i] + n - 1, min(divList[i], n-1))
+    count %= 10 ** 9 + 7
     # count *= combinations_count(divList[i] + n - 1, divList[i])
 print(count % (10 ** 9 + 7))

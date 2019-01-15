@@ -5,6 +5,9 @@ def func(n, m, a, b):
     for i in range(n):
         for j in range(m):
             if a[i] == b[j]:
+                if fixed[a[i]]:
+                    print(0)
+                    exit()
                 fixed[a[i]] = True
             else:
                 under[min(a[i], b[j])] += 1
@@ -29,7 +32,6 @@ def func(n, m, a, b):
     return count
 
 
-"""
 n, m = [int(i) for i in input().split()]
 a = [int(i) - 1 for i in input().split()]
 b = [int(i) - 1 for i in input().split()]
@@ -37,11 +39,12 @@ b = [int(i) - 1 for i in input().split()]
 # exit()
 print(func(n, m, a, b))
 
+"""
 print("{} (2)\n".format(2 == func(2, 2, [3, 2], [2, 3])))
 print("{} (0)\n".format(0 == func(3, 3, [4, 8, 6], [2, 5, 8])))
 
-"""
 print("{}\n{}\n".format(
     343772227, func(14, 13, [157, 166, 180, 146, 177, 150, 178, 181, 175, 168, 179, 128, 174, 167],
                       [180, 149, 177, 178, 166, 179, 175, 168, 181, 176, 174, 158, 172])))
 # print("{} (2)\n".format(2 == func(3, 3, [8, 7, 6], [8, 5, 2])))
+"""

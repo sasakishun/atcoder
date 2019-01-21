@@ -1,65 +1,41 @@
+inf = 10**20
+def func(n, k, pos):
+    out = inf
+    for i in range(n):
+        # pos[i]を含む長方形を考える
+        box = [[pos[i][0], pos[i][1]] for _ in range(4)]
+        used = [False for _ in range(n)]
+        used[i] = True
+        minS = 0
+        for _k in range(k-1):
+            minS = inf
+            using = -1
+            for j in range(n):
+                if not used[j]:
+                    s = (max(box[1][0], pos[j][0]) - min(box[0][0], pos[j][0])) \
+                        * (max(box[1][1], pos[j][1]) - min(box[2][1], pos[j][1]))
+                    if s < minS:
+                        minS = s
+                        using = j
+            used[using] = True
+            right = max(box[1][0], pos[using][0])
+            left = min(box[0][0], pos[using][0])
+            upper = max(box[1][1], pos[using][1])
+            botom = min(box[2][1], pos[using][1])
+            box = [[left, upper], [right, upper], [right, botom], [left, botom]]
+            # print("i:{} _k:{} minS:{} box:{}".format(i, _k, minS, box))
+        # if minS != math.inf:
+            # print(minS)
+        out = min(out, minS)
+    return out
+n, k = [int(i) for i in input().split()]
+pos = [[0, 0] for _ in range(n)]
+for i in range(n):
+    pos[i] = [int(i) for i in input().split()]
+print(func(n, k, pos))
 """
-def func(n, t, v):
-    t = [0] + t + [t[-1]]
-    print("t:{}".format(t))
-    v = [0] + v + [0]
-
-    limit = [0 for _ in range(t[-1] + 1)]
-    for i in reversed(range(len(t) - 1)):
-        for j in range(t[i] - t[i-1]):
-            limit[t[i] - j] = min(v[i + 1] + j, v[i])
-
-    print(limit)
-    print([[i, limit[i]] for i in range(len(limit))])
-    # print(list(range(len(limit))))
-    dist = 0
-    prev = 0
-    for i in range(1, len(limit)):
-        next = min(prev + 1, limit[i])
-        dist += (next + prev) / 2
-        print("i:{} add:{} dist:{}".format(i, (next + prev) / 2, dist))
-        prev = next
-    return str(dist)
-"""
-def func(n, t, v):
-    t = [0] + t + [t[-1]]
-    v = [0] + v + [0]
-    for i in range(len(t)):
-        t[i] *= 2
-    for i in range(len(v)):
-        v[i] *= 2
-    # print("t:{}".format(t))
-
-    limit = [0 for _ in range(t[-1] + 1)]
-    for i in reversed(range(len(t) - 1)):
-        for j in range(t[i] - t[i-1]+1):
-            limit[t[i] - j] = min(limit[t[i]] + j, v[i])
-
-    # print(limit)
-    # print([[i, limit[i]] for i in range(len(limit))])
-    # print(list(range(len(limit))))
-    dist = 0
-    prev = 0
-    for i in range(1, len(limit)):
-        next = min(prev + 1, limit[i])
-        dist += (next + prev) / 2
-        # print("i:{} add:{} dist:{}".format(i, (next + prev) / 2, dist))
-        prev = next
-    return str(dist/4)
-
-# print(510*510/2)
-n = int(input())
-t = [int(i) for i in input().split()]
-for i in range(1, len(t)):
-    t[i] += t[i-1]
-v = [int(i) for i in input().split()]
-print(func(n, t, v))
-# print("print(func({}, {}, {}))".format(n, t, v))
-"""
-print("2100 vs " + func(1, [100], [30]) + "\n")
-print("2632 vs " + func(2, [60, 110], [34, 38]) + "\n")
-print("76 vs " + func(3, [12, 26, 28], [6, 2, 7]) + "\n")
-print("20.25 vs " + func(1, [9], [10]) + "\n")
-print(
-    "20291 vs " + func(10, [64, 119, 146, 181, 257, 376, 383, 401, 450, 550], [29, 19, 31, 39, 27, 48, 41, 87, 55, 70]))
+print("21 vs " + str(func(4, 4, [[1, 4], [3, 3], [6, 2], [8, 1]])))
+print("1 vs " + str(func(4, 2, [[0, 0], [1, 1], [2, 2], [3, 3]])))
+print("3999999996000000001 vs " + str(func(4, 3, [[-1000000000, -1000000000], [1000000000, 1000000000], [-999999999, 999999999], [999999999, -999999999]])))
+# print("print(\"\"+str(func({}, {}, {})))".format(n, k, pos))
 """

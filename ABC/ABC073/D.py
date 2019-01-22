@@ -1,16 +1,22 @@
 import itertools
 n, m, R = map(int, input().split())
 r = list(map(int, input().split()))
-dis = [[float("inf") for _ in range(n)] for _ in range(n)]
+dis = [[0 for _ in range(n)] for _ in range(n)]
 for _ in range(m):
     a, b, c = map(int, input().split())
     dis[a - 1][b - 1] = c
     dis[b - 1][a - 1] = c
 
 def war(dis):
-    for k in range(n):
-        for i in range(n):
-            for j in range(n):
+    size = len(dis)
+    # 非接続要素が「float("inf")」なら省略可
+    for i in range(size):
+        for j in range(size):
+            if i != j and dis[i][j] == 0:
+                dis[i][j] = float("inf")
+    for k in range(size):
+        for i in range(size):
+            for j in range(size):
                 if dis[i][j] > dis[i][k] + dis[k][j]:
                     dis[i][j] = dis[i][k] + dis[k][j]
     return dis

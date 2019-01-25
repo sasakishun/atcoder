@@ -1,42 +1,22 @@
-import heapq
+# 入力「edges:隣接行列」「num_v:頂点数」「start:始点」
+def shortest_path(edges, num_v, start):
+    inf = float("inf")
+    dist = [inf for _ in range(num_v)]
+    dist[start] = 0
+    # 辺の緩和
+    for i in range(num_v):
+        for edge in edges:
+            if dist[edge[0]] != inf and dist[edge[1]] > dist[edge[0]] + edge[2]:
+                dist[edge[1]] = dist[edge[0]] + edge[2]
+                if i == num_v - 1 and edge[1] == num_v - 1:
+                    print("inf")
+                    exit()
+    return dist
 
-
-class dijkstra:
-    def __init__(self, adj):
-        self.adj = adj
-        self.visited = [-1 for _ in range(len(adj))]
-        self.heap = []
-
-    def allSearch(self, _start):
-        heapq.heappush(self.heap, [0, _start])
-        while 1:
-            if len(self.heap) == 0:
-                break
-            start = heapq.heappop(self.heap)
-            # 同じノードへ複数候補がある場合がある、
-            # 一度訪れたノードへの候補は削除する
-            if self.visited[start[1]] != -1:
-                continue
-            # 確定した距離をvisitテーブルに保持
-            self.visited[start[1]] = start[0]
-            for i in range(len(self.adj)):
-                if -self.adj[start[1]][i] - self.visited[start[1]] < -self.visited[i]:
-                    heapq.heappush(self.heap, [-(self.adj[start[1]][i] + self.visited[start[1]]), i])
-                if self.visited[i] == -1 and self.adj[start[1]][i] != 0:
-                    heapq.heappush(self.heap,
-                                   [-(self.adj[start[1]][i] + self.visited[start[1]]),
-                                    i,
-                                    self.adj[start[1]][i] + self.visited[start[1]]])
-        # print("start:{} score:{}".format(_start, max(self.visited)))
-        return self.visited
-
-
-_min = -10 ** 12
 n, m = [int(i) for i in input().split()]
-adj = [[_min for _ in range(n)] for _ in range(n)]
+edges = []
 for _ in range(m):
     a, b, c = [int(i) for i in input().split()]
-    adj[a - 1][b - 1] = c
-dij = dijkstra(adj)
-dij.allSearch(0)
-print(dij.visited[0][-1])
+    edges.append([a-1, b-1, -c])
+out = shortest_path(edges,n,0)
+print(-out[-1])

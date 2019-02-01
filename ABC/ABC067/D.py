@@ -3,7 +3,7 @@ import queue
 n = int(input())
 ab = [[] for _ in range(n)]
 for _ in range(n-1):
-    a, b = [int(i) - 1for i in input().split()]
+    a, b = [int(i) - 1 for i in input().split()]
     ab[a].append(b)
     ab[b].append(a)
 

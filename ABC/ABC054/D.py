@@ -4,37 +4,42 @@ class abc054D:
         self.a = a
         self.b = b
         self.thing = thing
-        self.table = [[[float("inf") for _ in range(400)] for _ in range(400)] for _ in range(n)]
+        _sumA = 0
+        _sumB = 0
+        for i in range(len(thing)):
+            _sumA += thing[i][0]
+            _sumB += thing[i][1]
+        self.table = [[[float("inf") for _ in range(_sumB)] for _ in range(_sumA)] for _ in range(n+1)]
 
     def func(self):
-        for sumA in range(len(self.table[0])):
-            for sumB in range(len(self.table[0][0])):
-                if sumA > 0 and sumB > 0 and sumA / sumB == self.a / self.b:
-                    self.table[0][sumA][sumB] = 0
-
+        self.table[0][0][0] = 0
         for i in range(1, len(self.table)):
             for sumA in range(len(self.table[0])):
                 for sumB in range(len(self.table[0][0])):
-                    # print("i;{} sumA:{} sumB:{}".format(i, sumA, sumB))
-                    self.table[i][sumA][sumB] \
-                        = min(self.table[i - 1][sumA][sumB],
-                              self.table[i - 1][sumA - self.thing[i][0]][sumB - self.thing[i][1]] + self.thing[i][2])
-        for i in range(len(self.table)):
-            for sumA in range(len(self.table[0])):
-                for sumB in range(len(self.table[0][0])):
-                    if self.table[i][sumA][sumB] != float("inf"):
-                        print("table[{}][{}][{}]:{}".format(i, sumA, sumB, self.table[i][sumA][sumB]))
-        return str(min(self.table[0][0][0],
-                       self.table[0][self.thing[0][0]][self.thing[0][1]]
-                       + self.thing[0][2]))
+                    if sumA - self.thing[i-1][0] >= 0 and sumB - self.thing[i-1][1] >= 0:
+                        self.table[i][sumA][sumB] \
+                            = min(self.table[i - 1][sumA][sumB],
+                                  self.table[i - 1][sumA - self.thing[i-1][0]][sumB - self.thing[i-1][1]]
+                                  + self.thing[i-1][2])
+                    else:
+                        self.table[i][sumA][sumB] = self.table[i-1][sumA][sumB]
+        _min = float("inf")
+        for sumA in range(1, len(self.table[0])):
+            for sumB in range(1, len(self.table[0][0])):
+                if sumA / sumB == self.a / self.b:
+                    _min = min(_min, self.table[-1][sumA][sumB])
+        if _min == float("inf"):
+            return str(-1)
+        else:
+            return str(_min)
 
-
-"""
-n, m, a = [int(i) for i in input().split()]
+n, a, b = [int(i) for i in input().split()]
 thing = [[0, 0, 0] for _ in range(n)]
 for i in range(n):
     thing[i] = [int(i) for i in input().split()]
+print(abc054D(n, a, b, thing).func())
 """
 # print("print(\" vs \" + func({}, {}, {}, {}))".format(n, m, a, thing))
 print("3  vs " + abc054D(3, 1, 1, [[1, 2, 1], [2, 1, 2], [3, 3, 10]]).func())
-# print("-1 vs " + abc054D(1, 1, 10, [[10, 10, 10]]).func())
+print("-1 vs " + abc054D(1, 1, 10, [[10, 10, 10]]).func())
+"""

@@ -17,18 +17,21 @@ def func(l, a):
     print("res:{}".format(res))
 
     # 終端から戻ってくるまでに消費できるコスト
-    _sum = [0 for _ in range(l+1)]
-    for i in reversed(range(l-1)):
-        if res[i] == 1:
+    _sum = [0 for _ in range(l+2)]
+    __sum = [0 for _ in range(l+2)]
+    for i in reversed(range(1, l+1)):
+        if res[i-1] == 1:
             _sum[i] = _sum[i+1] + 1
+            __sum[i] = _sum[i+1] + 1
         else:
-            _sum[i] = max(0, _sum[i+1] - 1)
+            _sum[i] = _sum[i+1] - 1
+            __sum[i] = max(0, _sum[i + 1] - 1)
     print("_sum:{}\n".format(_sum))
     _max = 0
     _min = float("inf")
     for i in range(1, len(imos)):
         _min = min(_min, imos[i])
-        _max = max(_max, imos[i] - _min + _sum[i-1])
+        _max = max(_max, imos[i] - _min + _sum[i] - _sum[i+1])
     return sum(a) - _max
 """
 l = int(input())

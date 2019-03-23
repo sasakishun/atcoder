@@ -10,6 +10,7 @@ def func(b):
         # print("search:{}".format(search))
         # print("pos:{}\n".format(pos))
         for i in range(len(target)):
+
         if len(target[search]) > 0 and \
                         target[search][-1] > pos:
             out.append(search + 1)
